@@ -18,8 +18,14 @@ namespace COMP123_M2020_Lesson9_Part1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// This is a shared event handler for all Buttons on the Calculator
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CalculatorButton_Click(object sender, EventArgs e)
         {
+            // create a Button object in memory from the sender object
             Button calculatorButton = sender as Button;
 
             if(calculatorButton.Tag.ToString() == "Operand")
@@ -35,11 +41,28 @@ namespace COMP123_M2020_Lesson9_Part1
 
                 if(ResultLabel.Text == "0")
                 {
-                    ResultLabel.Text = calculatorButton.Text;
+                    if (calculatorButton.Text == ".")
+                    {
+                       ResultLabel.Text += calculatorButton.Text;
+                    }
+                    else
+                    {
+                        ResultLabel.Text = calculatorButton.Text;
+                    }
                 }
                 else
                 {
-                    ResultLabel.Text += calculatorButton.Text;
+                    if (calculatorButton.Text == ".")
+                    {
+                        if (!ResultLabel.Text.Contains("."))
+                        {
+                            ResultLabel.Text += calculatorButton.Text;
+                        } 
+                    }
+                    else
+                    {
+                        ResultLabel.Text += calculatorButton.Text;
+                    }
                 }
                 
             }
@@ -49,6 +72,7 @@ namespace COMP123_M2020_Lesson9_Part1
                 {
                     case "ClearButton":
                         ResultLabel.Text = "0";
+                        ResultLabel.Font = new Font("Microsoft Sans Serif", 40.0f);
                         break;
                     case "BackspaceButton":
 
